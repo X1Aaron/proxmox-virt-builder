@@ -34,3 +34,4 @@ qm set $VM --boot c --bootdisk scsi0
 qm set $VM --serial0 socket --vga serial0
 echo
 echo "Done!"
+echo
