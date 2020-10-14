@@ -1,16 +1,16 @@
 
 DS=local
 
-echo Running virt-builder ($2)...
+echo Running virt-builder...
 virt-builder $2 --format qcow2 --install qemu-guest-agent
 echo
-echo "Creating VM ($1)..."
+echo "Creating VM..."
 qm create $1 --memory 2048 --net0 virtio,bridge=vmbr0
 echo
-echo "Importing Disk ($1)..."
+echo "Importing Disk..."
 qm importdisk $1 ${DISTRO}.qcow2 $DS
 echo
-echo "Adding Disk to VM ($1)..."
+echo "Adding Disk to VM ..."
 qm set $1 --scsihw virtio-scsi-pci --scsi0 $DS:$1/vm-$1-disk-0.raw
 echo
 echo "Adding Cloud-Init CDROM drive, etc..."
@@ -18,5 +18,5 @@ qm set $1 --ide2 $DS:cloudinit
 qm set $1 --boot c --bootdisk scsi0
 qm set $1 --serial0 socket --vga serial0
 echo
-echo "Done! VM $1 Created"
+echo "Done! VM Created"
 echo
