@@ -17,7 +17,7 @@ fi
 DS=local
 
 echo Downloading $DISTRO Image...
-virt-builder $DISTRO --format qcow2
+virt-builder $DISTRO --format qcow2 --install qemu-guest-agent
 echo
 echo "Creating VM"
 qm create $VM --memory 2048 --net0 virtio,bridge=vmbr0
