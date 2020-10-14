@@ -2,7 +2,7 @@
 DS=local
 
 echo Running virt-builder...
-virt-builder $2 --format qcow2 --install qemu-guest-agent
+virt-builder $2 --format qcow2 --install qemu-guest-agent,cloud-init
 echo
 echo "Creating VM..."
 qm create $1 --memory 2048 --net0 virtio,bridge=vmbr0
@@ -17,6 +17,7 @@ echo "Adding Cloud-Init CDROM drive, etc..."
 qm set $1 --ide2 $DS:cloudinit
 qm set $1 --boot c --bootdisk scsi0
 qm set $1 --serial0 socket --vga serial0
+qm set $1 --agent 1
 echo
 echo "Done! VM Created"
 echo
