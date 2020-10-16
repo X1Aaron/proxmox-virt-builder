@@ -3,7 +3,7 @@ DS=local
 
 echo Running virt-builder...
 virt-builder $2 --format qcow2 --hostname $3 --install qemu-guest-agent,cloud-init --size 32G --run-command 'useradd ansible && echo "ansible ALL=(ALL)  NOPASSWD:ALL" > /etc/sudoers.d/ansible'
-virt-sysprep -a $2.qcow2 --ssh-inject ansible:file:public.key
+virt-sysprep -a $2.qcow2 --ssh-inject ansible:file:/root/.ssh/id_rsa.pub
 echo
 echo "Creating VM..."
 qm create $1 --memory 2048 --net0 virtio,bridge=vmbr0 --name=$3
