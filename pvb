@@ -2,7 +2,7 @@
 DS=local
 
 echo Running virt-builder...
-virt-builder $2 --format qcow2 --hostname $3 --install qemu-guest-agent,cloud-init --size 32G --run-command 'useradd ansible && echo "ansible ALL=(ALL)  NOPASSWD:ALL" > /etc/sudoers.d/ansible'
+virt-builder $2 --format qcow2 --hostname $3 --install qemu-guest-agent,cloud-init --size 32G --run-command 'useradd -d /home/ansible/ -m -G sudo ansible && echo "ansible ALL=(ALL)  NOPASSWD:ALL" > /etc/sudoers.d/ansible'
 virt-sysprep -a $2.qcow2 --ssh-inject ansible:file:/root/.ssh/id_rsa.pub
 echo
 echo "Creating VM..."
@@ -18,4 +18,5 @@ echo "Adding Cloud-Init CDROM drive, etc..."
 qm set $1 --ide2 $DS:cloudinit --boot c --bootdisk scsi0 --agent 1
 echo
 echo "Done! VM Created"
+
 echo
