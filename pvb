@@ -2,7 +2,7 @@
 DS=local
 
 echo Running virt-builder...
-virt-builder $2 --format qcow2 --install qemu-guest-agent,cloud-init --size 32G
+virt-builder $2 --format qcow2 --hostname $3 --install qemu-guest-agent,cloud-init --size 32G
 echo
 echo "Creating VM..."
 qm create $1 --memory 2048 --net0 virtio,bridge=vmbr0
